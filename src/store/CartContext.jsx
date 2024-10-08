@@ -1,8 +1,9 @@
-import { createContext, useReducer  } from "react";
+import { createContext, useReducer, useEffect  } from "react";
 
 //create a context
 export const CartContext = createContext({
     items: [],
+    isVeg : false,
     addItem: (item) => {},
     removeItem: (id) => {},
     clearCart: () => {}
@@ -16,22 +17,24 @@ function cartReducer(state, action) {
        const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.item.id 
          );
-         const updatedItems = [...state.items];
-       //if the item exits it updates the quantity  
+         const updatedCartItems = [...state.items];
+
+       //if the item exits it updates the q uantity  
         if (existingCartItemIndex > -1){
+            // already existing item
          const existingItem = state.items[existingCartItemIndex] 
          const updatedItem = {
             ...existingItem,
             quantity: existingItem.quantity + 1
             };
-          updatedItems[existingCartItemIndex] = updatedItem;
+          updatedCartItems[existingCartItemIndex] = updatedItem;
         
         }else{
           //else add it to cart with quant 1
-          updatedItems.push({...action.item, quantity: 1 });
+          updatedCartItems.push({...action.item, quantity: 1 });
       }
 
-     return { ...state, items: updatedItems };
+     return { ...state, items: updatedCartItems };
     }
 
    case 'REMOVE_ITEM':{
@@ -39,24 +42,24 @@ function cartReducer(state, action) {
             (item) => item.id === action.id
          );
 
-         if (existingCartItemIndex === -1) return state;
+        // if (existingCartItemIndex === -1) return state;
 
          const existingCartItem = state.items[existingCartItemIndex];
-         const updatedItems = [...state.items];
+         const updatedCartItems = [...state.items];
 
         // if the quant = 1, remove the item from cart
          if (existingCartItem.quantity === 1){
-            updatedItems.splice(existingCartItemIndex, 1);
+            updatedCartItems.splice(existingCartItemIndex, 1);
          }else {
             //else decrease the quantity
             const updatedItem = {
                 ...existingCartItem,
                 quantity: existingCartItem.quantity - 1,
             };
-            updatedItems[existingCartItemIndex] = updatedItem;
+            updatedCartItems[existingCartItemIndex] = updatedItem;
          }
 
-         return { ...state, items: updatedItems };
+         return { ...state, items: updatedCartItems };
 
     }
      case 'CLEAR_CART':{
@@ -68,13 +71,21 @@ function cartReducer(state, action) {
 }
 }
 export function  CartContextProvider  ({ children }) {
+
+    const initialCart = JSON.parse(localStorage.getItem("cartItems")) || { items: [] };
     //useReducer to manage the cartReducer
-    const [ cart, dispatchCartAction ] = useReducer(cartReducer, { items: [] });
-  
+    const [ cart, dispatchCartAction ] = useReducer(cartReducer, initialCart);
+
+    useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+    }, [cart]);
+
     //dispatching each actions
     function addItem(item) {
         dispatchCartAction({ type: 'ADD_ITEM', item: item});
     }
+
+   
 
     function removeItem(id) {
         dispatchCartAction({ type: 'REMOVE_ITEM', id });

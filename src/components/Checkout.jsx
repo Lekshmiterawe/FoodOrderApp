@@ -18,7 +18,7 @@ export default function Checkout(){
     const cartCtx = useContext(CartContext);
     const userProgressCtx = useContext(UserProgressContext);
 
-   const { data, isLoading: isSending , error, sendRequest, clearData } = useHttp(
+   const { data, isLoading: isSending , error, sendRequestCB, clearData } = useHttp(
     'http://localhost:3000/orders', 
      requestConfig
     );
@@ -38,16 +38,13 @@ export default function Checkout(){
       clearData();
     }
 
-    console.log(userProgressCtx, "userProgressCtx")
-
     function handleSubmit(event){
         event.preventDefault();
 
-        const fd = new FormData(event.target);
-        const customerData = Object.fromEntries(fd.entries());
+        const formInputData = new FormData(event.target);
+        const customerData = Object.fromEntries(formInputData.entries());
 
-
-         sendRequest(JSON.stringify({
+        sendRequestCB(JSON.stringify({
           orders: {
             items: cartCtx.items,
             customer: customerData
@@ -72,7 +69,7 @@ export default function Checkout(){
          actions= <span>Sending order data</span>
      }
 
-     //console.log(data, 'data')
+    
      if(data && !error){
       return (
       <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleClose}>

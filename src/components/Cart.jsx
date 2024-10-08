@@ -22,7 +22,7 @@ export default function Cart() {
     
     function handleGoToCheckout(){
       userProgressCtx.showCheckout();
-      //console.log('clicked');
+      
     }
 
     return (
@@ -30,8 +30,20 @@ export default function Cart() {
        className="cart" 
        open={userProgressCtx.progress === 'cart'} 
        onClose={userProgressCtx.progress === 'cart' ? handleCloseCart : null }
-       >
-          <h2>Your Cart</h2>
+       >   
+       <button
+        className="close-button"
+        onClick={handleCloseCart}
+      >
+        &times;
+      </button>
+
+          
+          {cartCtn.items.length === 0 ? (
+        <p style={{ textAlign: "center", fontWeight: "bold", fontSize:25 }}>Your cart is empty</p>  
+      ) : (
+        <>
+        <h2>Cart</h2>
           <ul>
               {cartCtn.items.map((item) => (
                <CartItem 
@@ -46,14 +58,13 @@ export default function Cart() {
           </ul>
           <p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
           <p className="modal-actions">
-            <Button textOnly onClick={handleCloseCart}>
-              Close
-            </Button>
             {cartCtn.items.length > 0 && (
               <Button onClick={handleGoToCheckout}>Go to Checkout</Button>
               
              )}
           </p>
+          </>
+      )}
         </Modal>
     );
 }

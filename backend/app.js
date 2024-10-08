@@ -16,13 +16,13 @@ app.use((req, res, next) => {
 });
 
 app.get('/meals', async (req, res) => {
-  console.log('lekshmi')
+ 
   const meals = await fs.readFile('./data/available-meals.json', 'utf8');
   res.json(JSON.parse(meals));
 });
 
 app.post('/orders', async (req, res) => {
-  console.log('aaaaaaaaaaaaaaaaaaaaaa')
+
   const orderData = req.body.orders;
     if (orderData === null || orderData?.items === null || orderData?.items.length === 0) {
       return res

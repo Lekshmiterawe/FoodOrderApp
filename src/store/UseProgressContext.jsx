@@ -2,14 +2,17 @@ import { createContext, useState } from 'react';
 
 const UserProgressContext = createContext({
     progress: '',
+    selectedOption : 'all',
     showCart: () => {},
     hideCart: () => {},
     showCheckout: () => {},
-    hideCheckout: () => {}
+    hideCheckout: () => {},
+    filterValue: () => {}
 });
 
 export function UserProgressContextProvider({children}){
     const [userProgress, setUserProgress] = useState('');
+    const [selectedOption, setSelectedOption] = useState('all');
 
     function showCart(){
         setUserProgress('cart');
@@ -27,12 +30,22 @@ export function UserProgressContextProvider({children}){
         setUserProgress('');
     }
 
+   
+
+    function filterValue(selectedValue){
+        
+        setSelectedOption(selectedValue);
+      
+    }
+
     const useProgressCtx = {
         progress: userProgress,
+        selectedOption,
         showCart,
         hideCart,
         showCheckout,
-        hideCheckout 
+        hideCheckout,
+        filterValue 
     };
 
     return (

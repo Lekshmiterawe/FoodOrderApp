@@ -7,13 +7,15 @@ const UserProgressContext = createContext({
     hideCart: () => {},
     showCheckout: () => {},
     hideCheckout: () => {},
-    filterValue: () => {}
+    filterValue: () => {},
+    showTheme: () => {}
 });
 
 export function UserProgressContextProvider({children}){
     const [userProgress, setUserProgress] = useState('');
     const [selectedOption, setSelectedOption] = useState('all');
-
+    const [theme,setTheme] = useState('dark-theme');
+    
     function showCart(){
         setUserProgress('cart');
     }
@@ -29,23 +31,31 @@ export function UserProgressContextProvider({children}){
     function hideCheckout(){
         setUserProgress('');
     }
-
+    
+    function showTheme(checked){
+       console.log(checked, 'value');
+        if(checked){
+            setTheme('light-theme');
+        }else{
+        setTheme('dark-theme');
+        }
+        //console.log(theme);
+    }
    
-
     function filterValue(selectedValue){
-        
         setSelectedOption(selectedValue);
-      
     }
 
     const useProgressCtx = {
         progress: userProgress,
         selectedOption,
+        theme,
         showCart,
         hideCart,
         showCheckout,
         hideCheckout,
-        filterValue 
+        filterValue,
+        showTheme 
     };
 
     return (

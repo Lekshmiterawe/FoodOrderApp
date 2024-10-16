@@ -32,10 +32,10 @@ export default function useHttp(url, config, initialData){
     setIsLoading(true);//requests starts
     try{
       // Send the HTTP request 
-      //spread operator works as a join where data includes the customerdata and cartitems
+      //spread oprerator works as a join where data includes the customerdata and cartitems
        const resData = await sendHttpRequest(url, {...config, body: data}); //const requestConfig = { method: 'POST', headers: {'Content-Type': 'application/json' } body: data };
        setData(resData);
-     } catch(error){
+     } catch(erro){
        setError(error.message || 'Something went wrong');
      }
      setIsLoading(false);//request is complete

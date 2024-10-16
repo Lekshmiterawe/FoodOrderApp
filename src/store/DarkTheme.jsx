@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-const defaultColor = '#ffc404';
+const defaultColor = '#fff';
 const theme = createTheme({
            palette: {
             primary: { main: defaultColor },

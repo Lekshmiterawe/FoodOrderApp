@@ -9,12 +9,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import CenterFocusStrongIcon from '@mui/icons-material/CenterFocusStrong';
-
+import UserProgressContext from "../store/UseProgressContext.jsx";
 
 export default function MealItem({meal}) {
    const [open, setOpen] = useState(false);
    const cartCtx = useContext(CartContext);
    const [snackbarMsg, setSnackbarMsg] = useState('');
+   const userProgressCtx = useContext(UserProgressContext);
   
    
    function handleAddMealToCart() {
@@ -33,7 +34,7 @@ export default function MealItem({meal}) {
    }
   
     return (
-    <li className="meal-item">
+    <li className={userProgressCtx.theme === "light-theme"?"meal-item-light":"meal-item"}>
         <article style={{ position: "relative", display: "inline-block" }}>
         <img 
             style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}

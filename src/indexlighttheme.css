@@ -9,35 +9,26 @@ body {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: linear-gradient(#29251c, #2c2306); */
-  /* color: #d9e2f1; */
+  background: linear-gradient(#e0c380, #866b11);
+  color: #d9e2f1;
   min-height: 100vh;
 }
 
-.container-dark{
-  background: linear-gradient(#29251c, #2c2306);
-  color: #e6eaf0;
-}
-.container-light{
-  /* background:#bbb19a; */
-  /* background: linear-gradient(#d1cdc4, #ddaa03); */
-  background-color:#f5cc73;
-  color: #352c0f;
-}
+
 
 .close-button {
   position: absolute;
-  top: 10px;   
-  right: 10px;    
+  top: 10px;      /* Adjust as needed */
+  right: 10px;    /* Adjust as needed */
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #333;  
+  color: #333;    /* You can customize the color */
 }
 
 .close-button:hover {
-  color: rgb(113, 4, 22);    
+  color: rgb(113, 4, 22);    /* Optional: Change color on hover */
 }
 
 #main-header {
@@ -58,7 +49,7 @@ body {
   height: 5rem;
   object-fit: contain;
   border-radius: 50%;
-  border: 2px solid #ffc404;
+  border: 2px solid #2c271a;
 }
 
 #main-header button {
@@ -71,20 +62,11 @@ h1 {
   font-weight: 700;
   font-size: 2rem;
   margin: 0;
-  color: #ffc404;
+  color: #362e11;
   letter-spacing: 0.2rem;
   /* text-transform: uppercase; */
 }
 
-.hlight{
-  font-family: 'Lato', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  margin: 0;
-  color: #1a1506;
-  letter-spacing: 0.2rem;
-  /* text-transform: uppercase; */
-}
 #meals {
   width: 90%;
   max-width: 70rem;
@@ -102,14 +84,6 @@ h1 {
   overflow: hidden;
   text-align: center;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
-}
-
-.meal-item-light {
-  background-color: #f1af58;
-  border-radius: 1rem;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0 1px 6px rgba(155, 123, 123, 0.3);
 }
 
 .meal-item article {
